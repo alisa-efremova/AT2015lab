@@ -20,7 +20,7 @@
             {{if .showAlertName}}
               <div class="alert alert-danger" role="alert">{{.alertMessage}}</div>
             {{end}}
-            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Your Nickname" name="userNickname">
+            <input type="text" class="form-control" id="exampleInputNickname" placeholder="Your Nickname" name="userNickname" value="{{.nickname}}">
             <p class="help-block">Nickname should contain only English letters, digits and underscores.</p>
           </div>
           <div class="form-group">
@@ -28,7 +28,7 @@
             {{if .showAlertEmail}}
               <div class="alert alert-danger" role="alert">{{.alertMessage}}</div>
             {{end}}
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Your Email" name="userEmail">
+            <input type="email" class="form-control" id="exampleInputEmail" placeholder="Your Email" name="userEmail" value="{{.email}}">
             <p class="help-block">Only GMail, Yandex Mail and Mail.ru email addresses allowed.</p>
           </div>
           <div class="form-group">
