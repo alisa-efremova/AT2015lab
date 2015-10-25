@@ -88,8 +88,6 @@ func (self *RegisterFormValidator) CheckPassword(password string, result *Regist
 		result.message = "empty password"
 		} else if len(password) < 6 {
 			result.message = "password is too short, enter at least 6 symbols"
-		} else if matched, err := regexp.MatchString("^[a-zA-Z0-9]{6,}$", password); err == nil && !matched {
-			result.message = "password contains not allowed symbols"
 		} else if matched, err := regexp.MatchString("[a-zA-Z]", password); err == nil && !matched {
 			result.message = "password should contain at least 1 latin letter"
 		} else if matched, err := regexp.MatchString("[0-9]", password); err == nil && !matched {
