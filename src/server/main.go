@@ -43,6 +43,10 @@ func RenderUserPage(ctx *gin.Context, user *SiteUser) {
   })
 }
 
+func RenderLifeGamePage(ctx *gin.Context) {
+  ctx.HTML(http.StatusOK, "life-game.tpl", nil)
+}
+
 func main() {
   cache := NewSiteUsersCache()
   validator := new(RegisterFormValidator)
@@ -53,6 +57,9 @@ func main() {
   router.LoadHTMLGlob("../site-content/tpl/*.tpl")
   router.GET("/form", func(ctx *gin.Context) {
     RenderRegisterForm(ctx, nil, nil)
+  })
+  router.GET("/life", func(ctx *gin.Context) {
+    RenderLifeGamePage(ctx)
   })
   router.POST("/form", func(ctx *gin.Context) {
     user := &SiteUser{
@@ -66,8 +73,10 @@ func main() {
       cache.AddUser(user)
       RenderUserPage(ctx, user)
     } else {
-      RenderRegisterForm(ctx, &checkResult, user)
+      //RenderRegisterForm(ctx, &checkResult, user)
+      RenderRegisterForm(ctx, nil, nil)
     }
   })
+
   router.Run(":8080")
 }
