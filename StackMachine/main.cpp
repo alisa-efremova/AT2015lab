@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 void execute(CStackMachine & stackMachine, FILE *input)
 {
 	int value = 0;
@@ -20,10 +19,10 @@ void execute(CStackMachine & stackMachine, FILE *input)
 		{ "sub", bind(&CStackMachine::Substract, &stackMachine) },
 		{ "div", bind(&CStackMachine::Divide, &stackMachine) }
 	};
+
 	for (;;)
 	{
 		value = 0;
-		cout << "input commands: ";
 		int matchCount = fscanf(input, "%99s %d", command, &value);
 
 		switch (matchCount)
@@ -46,18 +45,31 @@ void execute(CStackMachine & stackMachine, FILE *input)
 	}
 }
 
-int main()
+int main(int argc, char * argv[])
 {
-	CStackMachine stackMachine;
+	if (argc < 2)
+	{
+		cout << "This program calculates simple statements using stack machine." << endl
+			<< "Execute program with path to the file (with commands for the stack machine), e.g. commands.txt" << endl;
+		return 0;
+	}
+	
+	FILE * inputFile;
+	inputFile = fopen(argv[1], "r");
 
-	stackMachine.Push(1);
-	stackMachine.Push(2);
-	stackMachine.PrintStack();
+	if (!inputFile)
+	{
+		cout << "File name is incorrect" << endl;
+		return -1;
+	}
+
+	CStackMachine stackMachine;
 
 	try
 	{
-		execute(stackMachine, stdin);
+		execute(stackMachine, inputFile);
 		stackMachine.PrintStack();
+		fclose(inputFile);
 	}
 	catch (exception const& ex)
 	{
